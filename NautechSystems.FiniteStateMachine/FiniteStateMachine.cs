@@ -1,7 +1,7 @@
 ﻿// -------------------------------------------------------------------------------------------------
 // <copyright file="FiniteStateMachine.cs" company="Nautech Systems Pty Ltd.">
 //   Copyright (C) 2017. All rights reserved.
-//   https://github.com/nautechsystems/NautechSystems.CSharp
+//   https://github.com/nautechsystems/NautechSystems.FiniteStateMachine
 //   the use of this source code is governed by the Apache 2.0 license
 //   as found in the LICENSE.txt file.
 // </copyright>
@@ -53,7 +53,7 @@ namespace NautechSystems.FiniteStateMachine
 
             var stateTransition = new StateTransition(this.CurrentState, trigger);
 
-            if (this.stateTransitionTable.ContainsKey(stateTransition))
+            if (this.IsValidStateTransition(stateTransition))
             {
                 this.ChangeStateTo(this.stateTransitionTable[stateTransition]);
 
@@ -62,6 +62,8 @@ namespace NautechSystems.FiniteStateMachine
 
             return Command.Fail($"Invalid State Transition ({this.CurrentState} -> {trigger})");
         }
+
+        private bool IsValidStateTransition(StateTransition transition) => this.stateTransitionTable.ContainsKey(transition);
 
         private void ChangeStateTo(Enum state)
         {
