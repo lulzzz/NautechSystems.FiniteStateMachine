@@ -9,6 +9,7 @@
 
 namespace NautechSystems.FiniteStateMachine
 {
+    using System;
     using NautechSystems.CSharp.Annotations;
     using NautechSystems.CSharp.Validation;
 
@@ -23,6 +24,7 @@ namespace NautechSystems.FiniteStateMachine
         /// </summary>
         /// <param name="currentState">The current state.</param>
         /// <param name="trigger">The trigger.</param>
+        /// <exception cref="ArgumentNullException">Throws if either argument is null.</exception>
         public StateTransition(State currentState, Trigger trigger)
         {
             Validate.NotNull(currentState, nameof(currentState));
@@ -64,7 +66,7 @@ namespace NautechSystems.FiniteStateMachine
         /// <param name="other">The other state transition.</param>
         /// <returns>A boolean.</returns>
         public bool Equals(StateTransition other) => 
-            this.CurrentState.Equals(other.CurrentState) 
+               this.CurrentState.Equals(other.CurrentState) 
             && this.Trigger.Equals(other.Trigger);
 
         /// <summary>
@@ -87,7 +89,6 @@ namespace NautechSystems.FiniteStateMachine
         /// Returns a string representation of the <see cref="StateTransition"/>.
         /// </summary>
         /// <returns>A <see cref="string"/>.</returns>
-        public override string ToString() => 
-            $"{nameof(StateTransition)}: {this.CurrentState} -> {this.Trigger}";
+        public override string ToString() => $"{nameof(StateTransition)}: {this.CurrentState} -> {this.Trigger}";
     }
 }

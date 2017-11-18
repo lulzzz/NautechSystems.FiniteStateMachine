@@ -13,10 +13,4 @@
     <ProjectReference Include="..\NautechSystems.FiniteStateMachine\NautechSystems.FiniteStateMachine.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="NautechSystems.CSharp">
-      <HintPath>..\..\..\..\.nuget\packages\nautechsystems.csharp\1.1.1\lib\netstandard2.0\NautechSystems.CSharp.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

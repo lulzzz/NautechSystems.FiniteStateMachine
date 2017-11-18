@@ -43,5 +43,52 @@ namespace NautechSystems.FiniteStateMachine.Tests
             Assert.True(result.IsSuccess);
             Assert.Equal(new State(OrderStatus.Accepted), stateMachine.CurrentState);
         }
+
+        [Fact]
+        public void Process_WithInvalidTrigger_ReturnsFailure()
+        {
+            // Arrange
+            var stateMachine = ExampleOrderStateMachine.Create();
+
+            // Act
+            var result = stateMachine.Process(new Trigger(OrderEvent.Working));
+
+            // Assert
+            Assert.True(result.IsFailure);
+        }
+
+        [Fact]
+        public void Process_ThroughFullCycle_ReturnsExpectedState()
+        {
+            // Arrange
+            var stateMachine = ExampleOrderStateMachine.Create();
+
+            // Act
+            stateMachine.Process(new Trigger(OrderEvent.Accepted));
+            stateMachine.Process(new Trigger(OrderEvent.Working));
+            stateMachine.Process(new Trigger(OrderEvent.PartiallyFilled));
+            var result = stateMachine.Process(new Trigger(OrderEvent.Filled));
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(new State(OrderStatus.Filled), stateMachine.CurrentState);
+        }
+
+        [Fact]
+        public void Process_MultipleValidTriggersThenInvalidTrigger_ReturnsFailure()
+        {
+            // Arrange
+            var stateMachine = ExampleOrderStateMachine.Create();
+
+            // Act
+            stateMachine.Process(new Trigger(OrderEvent.Accepted));
+            stateMachine.Process(new Trigger(OrderEvent.Working));
+            stateMachine.Process(new Trigger(OrderEvent.PartiallyFilled));
+            var result = stateMachine.Process(new Trigger(OrderEvent.Expired));
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(new State(OrderStatus.PartiallyFilled), stateMachine.CurrentState);
+        }
     }
 }

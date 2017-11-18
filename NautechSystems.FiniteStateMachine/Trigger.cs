@@ -25,6 +25,7 @@ namespace NautechSystems.FiniteStateMachine
         /// Initializes a new instance of the <see cref="Trigger"/> structure.
         /// </summary>
         /// <param name="trigger">The state.</param>
+        /// <exception cref="ArgumentNullException">Throws if the argument is null.</exception>
         public Trigger(string trigger)
         {
             Validate.NotNull(trigger, nameof(trigger));
@@ -36,6 +37,7 @@ namespace NautechSystems.FiniteStateMachine
         /// Initializes a new instance of the <see cref="Trigger"/> structure.
         /// </summary>
         /// <param name="trigger">The state.</param>
+        /// <exception cref="ArgumentNullException">Throws if the argument is null.</exception>
         public Trigger(Enum trigger)
         {
             Validate.NotNull(trigger, nameof(trigger));
@@ -76,13 +78,13 @@ namespace NautechSystems.FiniteStateMachine
         /// <summary>
         /// Returns the hash code of this <see cref="Trigger"/>.
         /// </summary>
-        /// <returns>An <see cref="int"/>.</returns>
+        /// <returns>An int.</returns>
         public override int GetHashCode() => this.trigger.GetHashCode();
 
         /// <summary>
         /// Returns a string representation of the <see cref="Trigger"/>.
         /// </summary>
-        /// <returns>A <see cref="string"/>.</returns>
+        /// <returns>A string.</returns>
         public override string ToString() => this.trigger;
     }
 }

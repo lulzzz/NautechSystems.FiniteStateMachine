@@ -25,7 +25,7 @@ namespace NautechSystems.FiniteStateMachine
         /// Initializes a new instance of the <see cref="FiniteStateMachine"/> class.
         /// </summary>
         /// <param name="stateTransitionTable">The state transition table.</param>
-        /// <param name="startingState">The starting State.</param>
+        /// <param name="startingState">The starting state.</param>
         /// <exception cref="ArgumentNullException">Throws if either argument is null.</exception>
         /// <exception cref="ArgumentException">Throws if the collection is empty.</exception>
         public FiniteStateMachine(

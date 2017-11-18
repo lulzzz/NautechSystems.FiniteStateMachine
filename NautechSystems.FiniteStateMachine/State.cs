@@ -25,6 +25,7 @@ namespace NautechSystems.FiniteStateMachine
         /// Initializes a new instance of the <see cref="State"/> structure.
         /// </summary>
         /// <param name="state">The state.</param>
+        /// <exception cref="ArgumentNullException">Throws if the argument is null.</exception>
         public State(string state)
         {
             Validate.NotNull(state, nameof(state));
@@ -36,6 +37,7 @@ namespace NautechSystems.FiniteStateMachine
         /// Initializes a new instance of the <see cref="State"/> structure.
         /// </summary>
         /// <param name="state">The state.</param>
+        /// <exception cref="ArgumentNullException">Throws if the argument is null.</exception>
         public State(Enum state)
         {
             Validate.NotNull(state, nameof(state));

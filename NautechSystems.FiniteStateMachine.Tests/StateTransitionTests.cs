@@ -51,7 +51,7 @@ namespace NautechSystems.FiniteStateMachine.Tests
         }
 
         [Fact]
-        public void Equals_WhenStateTransitionsShouldBeEqual_ReturnsTrue()
+        public void Equals_VariousStateTransitionsAndOperators_TestsCorrectly()
         {
             // Arrange
             var stateTransition1 = new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted));
@@ -60,15 +60,43 @@ namespace NautechSystems.FiniteStateMachine.Tests
 
             // Act
             var result1 = stateTransition1.Equals(stateTransition2);
-            var result2 = stateTransition1 == stateTransition2;
-            var result3 = stateTransition1.GetHashCode() == stateTransition2.GetHashCode();
+            var result2 = !stateTransition1.Equals(stateTransition3);
+            var result3 = stateTransition1 == stateTransition2;            
             var result4 = stateTransition1 != stateTransition3;
+            var result5 = stateTransition1.GetHashCode() == stateTransition2.GetHashCode();
 
             // Assert
             Assert.True(result1);
             Assert.True(result2);
             Assert.True(result3);
             Assert.True(result4);
+            Assert.True(result5);
+        }
+
+        [Fact]
+        public void GetHashCode_ReturnsExpectedInt()
+        {
+            // Arrange
+            var stateTransition = new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted));
+
+            // Act
+            var result = stateTransition.GetHashCode();
+
+            // Assert
+            Assert.Equal(typeof(int), result.GetType());
+        }
+
+        [Fact]
+        public void ToString_ReturnsExpectedString()
+        {
+            // Arrange
+            var stateTransition = new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted));
+
+            // Act
+            var result = stateTransition.ToString();
+
+            // Assert
+            Assert.Equal("StateTransition: Initialized -> Accepted", result);
         }
     }
 }
