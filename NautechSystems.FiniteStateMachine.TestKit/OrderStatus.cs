@@ -9,30 +9,27 @@
 
 namespace NautechSystems.FiniteStateMachine.TestKit
 {
+    using System.Diagnostics.CodeAnalysis;
+
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
     public enum OrderStatus
     {
-        /// <summary>
-        /// The unknown.
-        /// </summary>
         Unknown = 0,
 
-        /// <summary>
-        /// The initialized.
-        /// </summary>
         Initialized = 1,
 
         Rejected = 2,
 
-        Accepted = 2,
+        Accepted = 3,
 
         Working = 4,
 
-        Cancelled = 2,
+        Cancelled = 5,
 
-        Expired = 5,
+        Expired = 6,
 
-        Filled = 3,
+        Filled = 7,
 
-        PartiallyFilled = 4,
+        PartiallyFilled = 8
     }
 }

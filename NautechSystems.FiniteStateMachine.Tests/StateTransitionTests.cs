@@ -9,7 +9,6 @@
 
 namespace NautechSystems.FiniteStateMachine.Tests
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using NautechSystems.FiniteStateMachine.TestKit;
@@ -23,29 +22,29 @@ namespace NautechSystems.FiniteStateMachine.Tests
         public void IndexDictionary_WithExampleStateTransition_ReturnsExpectedValue()
         {
             // Arrange
-            var stateTransitionTable = new Dictionary<StateTransition, Enum>
-                                           {
-                                               { new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted), OrderStatus.Accepted }
-                                           };
+            var stateTransitionTable = new Dictionary<StateTransition, State>
+            {
+                { new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted)), new State(OrderStatus.Accepted) }
+            };
 
             // Act
-            var result = stateTransitionTable[new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted)];
+            var result = stateTransitionTable[new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted))];
 
             // Assert
-            Assert.Equal(OrderStatus.Accepted, result);
+            Assert.Equal(new State(OrderStatus.Accepted), result);
         }
 
         [Fact]
         public void ContainsKey_WithExampleTransitionTable_ReturnsTrue()
         {
             // Arrange
-            var stateTransitionTable = new Dictionary<StateTransition, Enum>
+            var stateTransitionTable = new Dictionary<StateTransition, State>
             {
-                { new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted), OrderStatus.Accepted }
+                { new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted)), new State(OrderStatus.Accepted) }
             };
 
             // Act
-            var result = stateTransitionTable.ContainsKey(new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted));
+            var result = stateTransitionTable.ContainsKey(new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted)));
 
             // Assert
             Assert.True(result);
@@ -55,9 +54,9 @@ namespace NautechSystems.FiniteStateMachine.Tests
         public void Equals_WhenStateTransitionsShouldBeEqual_ReturnsTrue()
         {
             // Arrange
-            var stateTransition1 = new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted);
-            var stateTransition2 = new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted);
-            var stateTransition3 = new StateTransition(OrderStatus.Accepted, OrderEvent.Working);
+            var stateTransition1 = new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted));
+            var stateTransition2 = new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted));
+            var stateTransition3 = new StateTransition(new State(OrderStatus.Accepted), new Trigger(OrderEvent.Working));
 
             // Act
             var result1 = stateTransition1.Equals(stateTransition2);

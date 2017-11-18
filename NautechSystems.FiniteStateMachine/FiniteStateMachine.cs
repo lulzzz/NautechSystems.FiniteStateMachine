@@ -15,11 +15,11 @@ namespace NautechSystems.FiniteStateMachine
     using NautechSystems.CSharp.Validation;
 
     /// <summary>
-    /// The immutable <see cref="FiniteStateMachine"/> class.
+    /// The <see cref="FiniteStateMachine"/> class.
     /// </summary>
     public class FiniteStateMachine
     {
-        private readonly Dictionary<StateTransition, Enum> stateTransitionTable;
+        private readonly Dictionary<StateTransition, State> stateTransitionTable;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FiniteStateMachine"/> class.
@@ -27,8 +27,8 @@ namespace NautechSystems.FiniteStateMachine
         /// <param name="stateTransitionTable">The state transition table.</param>
         /// <param name="startingState">The starting State.</param>
         public FiniteStateMachine(
-            Dictionary<StateTransition, Enum> stateTransitionTable, 
-            Enum startingState)
+            Dictionary<StateTransition, State> stateTransitionTable, 
+            State startingState)
         {
             Validate.CollectionNotNullOrEmpty(stateTransitionTable, nameof(stateTransitionTable));
             Validate.NotNull(startingState, nameof(startingState));
@@ -40,14 +40,14 @@ namespace NautechSystems.FiniteStateMachine
         /// <summary>
         /// Gets the current state.
         /// </summary>
-        public Enum CurrentState { get; private set; }
+        public State CurrentState { get; private set; }
 
         /// <summary>
         /// Processes the state machine with the given trigger
         /// </summary>
         /// <param name="trigger">The trigger.</param>
         /// <returns>A <see cref="Command"/> result.</returns>
-        public Command Process(Enum trigger)
+        public Command Process(Trigger trigger)
         {
             Validate.NotNull(trigger, nameof(trigger));
 
@@ -65,7 +65,7 @@ namespace NautechSystems.FiniteStateMachine
 
         private bool IsValidStateTransition(StateTransition transition) => this.stateTransitionTable.ContainsKey(transition);
 
-        private void ChangeStateTo(Enum state)
+        private void ChangeStateTo(State state)
         {
             Debug.NotNull(state, nameof(state));
 

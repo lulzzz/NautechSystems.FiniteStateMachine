@@ -9,7 +9,6 @@
 
 namespace NautechSystems.FiniteStateMachine.TestKit
 {
-    using System;
     using System.Collections.Generic;
     using NautechSystems.CSharp.Annotations;
 
@@ -25,20 +24,20 @@ namespace NautechSystems.FiniteStateMachine.TestKit
         /// <returns>A <see cref="FiniteStateMachine"/>.</returns>
         public static FiniteStateMachine Create()
         {
-            var stateTransitionTable = new Dictionary<StateTransition, Enum>
+            var stateTransitionTable = new Dictionary<StateTransition, State>
             {
-                { new StateTransition(OrderStatus.Initialized, OrderEvent.Accepted), OrderStatus.Accepted },
-                { new StateTransition(OrderStatus.Initialized, OrderEvent.Rejected), OrderStatus.Rejected },
-                { new StateTransition(OrderStatus.Accepted, OrderEvent.Working), OrderStatus.Working },
-                { new StateTransition(OrderStatus.Working, OrderEvent.Cancelled), OrderStatus.Cancelled },
-                { new StateTransition(OrderStatus.Working, OrderEvent.Expired), OrderStatus.Expired },
-                { new StateTransition(OrderStatus.Working, OrderEvent.Filled), OrderStatus.Filled },
-                { new StateTransition(OrderStatus.Working, OrderEvent.PartiallyFilled), OrderStatus.PartiallyFilled },
-                { new StateTransition(OrderStatus.PartiallyFilled, OrderEvent.PartiallyFilled), OrderStatus.PartiallyFilled },
-                { new StateTransition(OrderStatus.PartiallyFilled, OrderEvent.Filled), OrderStatus.Filled }
+                { new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Accepted)), new State(OrderStatus.Accepted) },
+                { new StateTransition(new State(OrderStatus.Initialized), new Trigger(OrderEvent.Rejected)), new State(OrderStatus.Rejected) },
+                { new StateTransition(new State(OrderStatus.Accepted), new Trigger(OrderEvent.Working)), new State(OrderStatus.Working) },
+                { new StateTransition(new State(OrderStatus.Working), new Trigger(OrderEvent.Cancelled)), new State(OrderStatus.Cancelled) },
+                { new StateTransition(new State(OrderStatus.Working), new Trigger(OrderEvent.Expired)), new State(OrderStatus.Expired) },
+                { new StateTransition(new State(OrderStatus.Working), new Trigger(OrderEvent.Filled)), new State(OrderStatus.Filled) },
+                { new StateTransition(new State(OrderStatus.Working), new Trigger(OrderEvent.PartiallyFilled)), new State(OrderStatus.PartiallyFilled) },
+                { new StateTransition(new State(OrderStatus.PartiallyFilled), new Trigger(OrderEvent.PartiallyFilled)), new State(OrderStatus.PartiallyFilled) },
+                { new StateTransition(new State(OrderStatus.PartiallyFilled), new Trigger(OrderEvent.Filled)), new State(OrderStatus.Filled) }
             };
 
-            return new FiniteStateMachine(stateTransitionTable, OrderStatus.Initialized);
+            return new FiniteStateMachine(stateTransitionTable, new State(OrderStatus.Initialized));
         }
     }
 }

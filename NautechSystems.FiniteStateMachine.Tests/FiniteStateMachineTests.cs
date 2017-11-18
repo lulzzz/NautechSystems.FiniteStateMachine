@@ -27,7 +27,7 @@ namespace NautechSystems.FiniteStateMachine.Tests
             var result = stateMachine.CurrentState;
 
             // Assert
-            Assert.Equal(OrderStatus.Initialized, result);
+            Assert.Equal(new State(OrderStatus.Initialized), result);
         }
 
         [Fact]
@@ -37,11 +37,11 @@ namespace NautechSystems.FiniteStateMachine.Tests
             var stateMachine = ExampleOrderStateMachine.Create();
 
             // Act
-            var result = stateMachine.Process(OrderEvent.Accepted);
+            var result = stateMachine.Process(new Trigger(OrderEvent.Accepted));
 
             // Assert
-            //Assert.True(result.IsSuccess);
-            Assert.Equal(OrderStatus.Accepted, stateMachine.CurrentState);
+            Assert.True(result.IsSuccess);
+            Assert.Equal(new State(OrderStatus.Accepted), stateMachine.CurrentState);
         }
     }
 }

@@ -9,7 +9,6 @@
 
 namespace NautechSystems.FiniteStateMachine
 {
-    using System;
     using NautechSystems.CSharp.Annotations;
     using NautechSystems.CSharp.Validation;
 
@@ -17,14 +16,14 @@ namespace NautechSystems.FiniteStateMachine
     /// The immutable <see cref="StateTransition"/> structure.
     /// </summary>
     [Immutable]
-    public class StateTransition
+    public struct StateTransition
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateTransition"/> class.
+        /// Initializes a new instance of the <see cref="StateTransition"/> struct. 
         /// </summary>
         /// <param name="currentState">The current state.</param>
-        /// /// <param name="trigger">The trigger.</param>
-        public StateTransition(Enum currentState, Enum trigger)
+        /// <param name="trigger">The trigger.</param>
+        public StateTransition(State currentState, Trigger trigger)
         {
             Validate.NotNull(currentState, nameof(currentState));
             Validate.NotNull(trigger, nameof(trigger));
@@ -36,12 +35,12 @@ namespace NautechSystems.FiniteStateMachine
         /// <summary>
         /// Gets the current state.
         /// </summary>
-        public Enum CurrentState { get; }
+        public State CurrentState { get; }
 
         /// <summary>
         /// Gets the trigger.
         /// </summary>
-        public Enum Trigger { get; }
+        public Trigger Trigger { get; }
 
         /// <summary>
         /// The ==.
@@ -49,20 +48,7 @@ namespace NautechSystems.FiniteStateMachine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>A boolean.</returns>
-        public static bool operator ==(StateTransition left, StateTransition right)
-        {
-            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            {
-                return false;
-            }
-
-            return left.Equals(right);
-        }
+        public static bool operator ==(StateTransition left, StateTransition right) => left.Equals(right);
 
         /// <summary>
         /// The !=.
@@ -70,8 +56,7 @@ namespace NautechSystems.FiniteStateMachine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>A boolean.</returns>
-        public static bool operator !=(StateTransition left, StateTransition right) => 
-            !(left == right);
+        public static bool operator !=(StateTransition left, StateTransition right) => !(left == right);
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to the specified <see cref="StateTransition"/>.
@@ -79,8 +64,7 @@ namespace NautechSystems.FiniteStateMachine
         /// <param name="other">The other state transition.</param>
         /// <returns>A boolean.</returns>
         public bool Equals(StateTransition other) => 
-            other != null 
-            && this.CurrentState.Equals(other.CurrentState)
+            this.CurrentState.Equals(other.CurrentState) 
             && this.Trigger.Equals(other.Trigger);
 
         /// <summary>
