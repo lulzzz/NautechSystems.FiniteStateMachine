@@ -78,13 +78,13 @@ namespace NautechSystems.FiniteStateMachine
         /// <summary>
         /// Returns the hash code of this <see cref="State"/>.
         /// </summary>
-        /// <returns>An <see cref="int"/>.</returns>
+        /// <returns>An integer.</returns>
         public override int GetHashCode() => this.state.GetHashCode();
 
         /// <summary>
         /// Returns a string representation of the <see cref="State"/>.
         /// </summary>
-        /// <returns>A <see cref="string"/>.</returns>
+        /// <returns>A string.</returns>
         public override string ToString() => this.state;
     }
 }

@@ -78,7 +78,7 @@ namespace NautechSystems.FiniteStateMachine
         /// <summary>
         /// Returns the hash code of this <see cref="Trigger"/>.
         /// </summary>
-        /// <returns>An int.</returns>
+        /// <returns>An integer.</returns>
         public override int GetHashCode() => this.trigger.GetHashCode();
 
         /// <summary>

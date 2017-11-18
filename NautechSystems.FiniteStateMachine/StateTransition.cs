@@ -82,13 +82,13 @@ namespace NautechSystems.FiniteStateMachine
         /// <summary>
         /// Returns the hash code of this <see cref="StateTransition"/>.
         /// </summary>
-        /// <returns>An <see cref="int"/>.</returns>
+        /// <returns>An integer.</returns>
         public override int GetHashCode() => this.CurrentState.GetHashCode() + this.Trigger.GetHashCode();       
 
         /// <summary>
         /// Returns a string representation of the <see cref="StateTransition"/>.
         /// </summary>
-        /// <returns>A <see cref="string"/>.</returns>
+        /// <returns>A string.</returns>
         public override string ToString() => $"{nameof(StateTransition)}: {this.CurrentState} -> {this.Trigger}";
     }
 }

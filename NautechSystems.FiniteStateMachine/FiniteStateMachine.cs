@@ -40,7 +40,7 @@ namespace NautechSystems.FiniteStateMachine
         }
 
         /// <summary>
-        /// Gets the current state.
+        /// Gets the current <see cref="State"/>.
         /// </summary>
         public State CurrentState { get; private set; }
 
@@ -48,7 +48,7 @@ namespace NautechSystems.FiniteStateMachine
         /// Processes the state machine with the given trigger
         /// </summary>
         /// <param name="trigger">The trigger.</param>
-        /// <returns>A <see cref="Command"/> result.</returns>
+        /// <returns>A command result.</returns>
         /// <exception cref="ArgumentNullException">Throws if the trigger is null.</exception>
         public Command Process(Trigger trigger)
         {
