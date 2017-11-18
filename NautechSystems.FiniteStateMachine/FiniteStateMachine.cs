@@ -26,6 +26,8 @@ namespace NautechSystems.FiniteStateMachine
         /// </summary>
         /// <param name="stateTransitionTable">The state transition table.</param>
         /// <param name="startingState">The starting State.</param>
+        /// <exception cref="ArgumentNullException">Throws if either argument is null.</exception>
+        /// <exception cref="ArgumentException">Throws if the collection is empty.</exception>
         public FiniteStateMachine(
             Dictionary<StateTransition, State> stateTransitionTable, 
             State startingState)
@@ -47,6 +49,7 @@ namespace NautechSystems.FiniteStateMachine
         /// </summary>
         /// <param name="trigger">The trigger.</param>
         /// <returns>A <see cref="Command"/> result.</returns>
+        /// <exception cref="ArgumentNullException">Throws if the trigger is null.</exception>
         public Command Process(Trigger trigger)
         {
             Validate.NotNull(trigger, nameof(trigger));
