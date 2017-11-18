@@ -6,7 +6,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Nautech Systems</Authors>
     <Company>Nautech Systems Pty Ltd</Company>
-    <Description>A simple finite state machine implementation.</Description>
+    <Description>A simple generic finite state machine.</Description>
     <Copyright>Copyright ©2017 Nautech Systems Pty Ltd.</Copyright>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/nautechsystems/NautechSystems.FiniteStateMachine</PackageProjectUrl>
