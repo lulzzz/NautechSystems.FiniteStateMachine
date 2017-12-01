@@ -13,7 +13,8 @@
     <PackageIconUrl>https://raw.githubusercontent.com/nautechsystems/NautechSystems.FiniteStateMachine/master/nautechsystems.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/nautechsystems/NautechSystems.FiniteStateMachine</RepositoryUrl>
     <PackageTags>finite state machine</PackageTags>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Changed state value to enum only.</PackageReleaseNotes>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
