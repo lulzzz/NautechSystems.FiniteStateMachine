@@ -19,20 +19,6 @@ namespace NautechSystems.FiniteStateMachine
     [Immutable]
     public struct State
     {
-        private readonly string state;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="State"/> structure.
-        /// </summary>
-        /// <param name="state">The state.</param>
-        /// <exception cref="ArgumentNullException">Throws if the argument is null.</exception>
-        public State(string state)
-        {
-            Validate.NotNull(state, nameof(state));
-
-            this.state = state;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="State"/> structure.
         /// </summary>
@@ -42,8 +28,13 @@ namespace NautechSystems.FiniteStateMachine
         {
             Validate.NotNull(state, nameof(state));
 
-            this.state = state.ToString();
+            this.Value = state;
         }
+
+        /// <summary>
+        /// Gets the <see cref="Enum"/> value of the state.
+        /// </summary>
+        public Enum Value { get; }
 
         /// <summary>
         /// The ==.
@@ -62,29 +53,30 @@ namespace NautechSystems.FiniteStateMachine
         public static bool operator !=(State left, State right) => !(left == right);
 
         /// <summary>
-        /// Returns a value indicating whether this instance is equal to the specified <see cref="State"/>.
+        /// Returns a value indicating whether this <see cref="State"/> is equal to the 
+        /// specified <see cref="State"/>.
         /// </summary>
         /// <param name="other">The other state.</param>
         /// <returns>A boolean.</returns>
-        public bool Equals(State other) => this.state == other.state;
+        public bool Equals(State other) => this.Value.Equals(other.Value);
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns>A boolean.</returns>
-        public override bool Equals(object obj) => obj is State other && this.state == other.state;
+        public override bool Equals(object obj) => obj is State other && this.Value.Equals(other.Value);
 
         /// <summary>
         /// Returns the hash code of this <see cref="State"/>.
         /// </summary>
         /// <returns>An integer.</returns>
-        public override int GetHashCode() => this.state.GetHashCode();
+        public override int GetHashCode() => this.Value.GetHashCode();
 
         /// <summary>
         /// Returns a string representation of the <see cref="State"/>.
         /// </summary>
         /// <returns>A string.</returns>
-        public override string ToString() => this.state;
+        public override string ToString() => this.Value.ToString();
     }
 }

@@ -19,8 +19,6 @@ namespace NautechSystems.FiniteStateMachine
     [Immutable]
     public struct Trigger
     {
-        private readonly string trigger;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Trigger"/> structure.
         /// </summary>
@@ -30,7 +28,7 @@ namespace NautechSystems.FiniteStateMachine
         {
             Validate.NotNull(trigger, nameof(trigger));
 
-            this.trigger = trigger;
+            this.Value = trigger;
         }
 
         /// <summary>
@@ -42,8 +40,13 @@ namespace NautechSystems.FiniteStateMachine
         {
             Validate.NotNull(trigger, nameof(trigger));
 
-            this.trigger = trigger.ToString();
+            this.Value = trigger.ToString();
         }
+
+        /// <summary>
+        /// Gets the <see cref="String"/> value of this trigger.
+        /// </summary>
+        public string Value { get; }
 
         /// <summary>
         /// The ==.
@@ -66,25 +69,25 @@ namespace NautechSystems.FiniteStateMachine
         /// </summary>
         /// <param name="other">The other state.</param>
         /// <returns>A boolean.</returns>
-        public bool Equals(Trigger other) => this.trigger == other.trigger;
+        public bool Equals(Trigger other) => this.Value == other.Value;
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns>A boolean.</returns>
-        public override bool Equals(object obj) => obj is Trigger other && this.trigger == other.trigger;
+        public override bool Equals(object obj) => obj is Trigger other && this.Value == other.Value;
 
         /// <summary>
         /// Returns the hash code of this <see cref="Trigger"/>.
         /// </summary>
         /// <returns>An integer.</returns>
-        public override int GetHashCode() => this.trigger.GetHashCode();
+        public override int GetHashCode() => this.Value.GetHashCode();
 
         /// <summary>
         /// Returns a string representation of the <see cref="Trigger"/>.
         /// </summary>
         /// <returns>A string.</returns>
-        public override string ToString() => this.trigger;
+        public override string ToString() => this.Value;
     }
 }

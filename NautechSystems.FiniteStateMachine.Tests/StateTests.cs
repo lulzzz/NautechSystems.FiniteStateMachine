@@ -22,7 +22,7 @@ namespace NautechSystems.FiniteStateMachine.Tests
         {
             // Arrange
             var state1 = new State(OrderStatus.Initialized);
-            var state2 = new State("Initialized");
+            var state2 = new State(OrderStatus.Initialized);
             var state3 = new State(OrderStatus.Accepted);
 
             // Act

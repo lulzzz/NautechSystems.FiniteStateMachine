@@ -11,15 +11,18 @@ namespace NautechSystems.FiniteStateMachine
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using NautechSystems.CSharp;
+    using NautechSystems.CSharp.Extensions;
     using NautechSystems.CSharp.Validation;
 
     /// <summary>
-    /// The <see cref="FiniteStateMachine"/> class.
+    /// The <see cref="FiniteStateMachine"/> class. Represents a simple generic finite state machine
+    /// comprising of a state transition look-up table to determine trigger processing validity.
     /// </summary>
     public class FiniteStateMachine
     {
-        private readonly Dictionary<StateTransition, State> stateTransitionTable;
+        private readonly IImmutableDictionary<StateTransition, State> stateTransitionTable;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FiniteStateMachine"/> class.
@@ -27,15 +30,15 @@ namespace NautechSystems.FiniteStateMachine
         /// <param name="stateTransitionTable">The state transition table.</param>
         /// <param name="startingState">The starting state.</param>
         /// <exception cref="ArgumentNullException">Throws if either argument is null.</exception>
-        /// <exception cref="ArgumentException">Throws if the collection is empty.</exception>
+        /// <exception cref="ArgumentException">Throws if the state transition table is empty.</exception>
         public FiniteStateMachine(
-            Dictionary<StateTransition, State> stateTransitionTable, 
+            IDictionary<StateTransition, State> stateTransitionTable, 
             State startingState)
         {
             Validate.CollectionNotNullOrEmpty(stateTransitionTable, nameof(stateTransitionTable));
             Validate.NotNull(startingState, nameof(startingState));
 
-            this.stateTransitionTable = stateTransitionTable;
+            this.stateTransitionTable = stateTransitionTable.ToImmutableDictionary();
             this.CurrentState = startingState;
         }
 
@@ -45,7 +48,7 @@ namespace NautechSystems.FiniteStateMachine
         public State CurrentState { get; private set; }
 
         /// <summary>
-        /// Processes the state machine with the given trigger
+        /// Processes the finite state machine with the given <see cref="Trigger"/>.
         /// </summary>
         /// <param name="trigger">The trigger.</param>
         /// <returns>A command result.</returns>
@@ -54,16 +57,11 @@ namespace NautechSystems.FiniteStateMachine
         {
             Validate.NotNull(trigger, nameof(trigger));
 
-            var stateTransition = new StateTransition(this.CurrentState, trigger);
+            var transition = new StateTransition(this.CurrentState, trigger);
 
-            if (this.IsValidStateTransition(stateTransition))
-            {
-                this.ChangeStateTo(this.stateTransitionTable[stateTransition]);
-
-                return Command.Ok();
-            }
-
-            return Command.Fail($"Invalid State Transition ({this.CurrentState} -> {trigger})");
+            return this.IsValidStateTransition(transition)
+                       ? Command.Ok().OnSuccess(() => this.ChangeStateTo(this.StateTransitionResult(transition)))
+                       : Command.Fail($"Invalid state transition: {this.CurrentState} -> {trigger}");
         }
 
         private bool IsValidStateTransition(StateTransition transition) => this.stateTransitionTable.ContainsKey(transition);
@@ -73,6 +71,11 @@ namespace NautechSystems.FiniteStateMachine
             Debug.NotNull(state, nameof(state));
 
             this.CurrentState = state;
+        }
+
+        private State StateTransitionResult(StateTransition transition)
+        {
+            return this.stateTransitionTable[transition];
         }
     }
 }

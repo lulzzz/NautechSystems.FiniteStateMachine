@@ -14,7 +14,8 @@ namespace NautechSystems.FiniteStateMachine
     using NautechSystems.CSharp.Validation;
 
     /// <summary>
-    /// The immutable <see cref="StateTransition"/> structure.
+    /// The immutable <see cref="StateTransition"/> structure. Represents the concept of a starting
+    /// <see cref="State"/>, which is then affected by an event <see cref="Trigger"/>.
     /// </summary>
     [Immutable]
     public struct StateTransition
